@@ -50,8 +50,8 @@ All the triplets of the array A are:
  (4, 3, 2) = 9
 
 So the 3rd smallest element is 9.
-
  */
+
 public class FindSmallestAgain {
 
     public static void main(String[] args) {
@@ -98,7 +98,7 @@ public class FindSmallestAgain {
         Collections.sort(A);
         int n = A.size();
 
-        int left = 1;
+        int left = A.get(1) + A.get(2) + A.get(3);
         int right = A.get(n - 1) + A.get(n - 2) + A.get(n - 3);
         int ans = 0;
 
