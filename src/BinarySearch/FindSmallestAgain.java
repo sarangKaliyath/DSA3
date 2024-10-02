@@ -64,6 +64,8 @@ public class FindSmallestAgain {
         // Space O(B) -> Gives OUT OF MEMORY ERROR FOR LARGE VALUES;
 
         optimized(A, B);
+        // Time O(N^2);
+        // Space O(1);
     }
 
     public static void bruteForce(ArrayList<Integer> A, int n, int B) {
