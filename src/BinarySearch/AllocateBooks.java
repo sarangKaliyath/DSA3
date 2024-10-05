@@ -65,6 +65,8 @@ public class AllocateBooks {
 
         int res = findMaxPagesToBeRead(A, B);
         System.out.println(res);
+        // Time O[Nlog(sum(A))];
+        // Space O(1);
     }
 
     public static int findMaxPagesToBeRead(ArrayList<Integer> Books, int noOfStudents) {
