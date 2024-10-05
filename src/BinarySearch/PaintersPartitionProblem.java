@@ -70,57 +70,52 @@ public class PaintersPartitionProblem {
         int A = 3;
         int B = 10;
 
-        int res = findTime(C, A, B);
+        int res = findMinimumTimeRequired(C, B, A);
         System.out.println(res);
-        // Time O (N * log( sum(C) - max(C) );
-        // Space O(1);
     }
 
+    public static int findMinimumTimeRequired(ArrayList<Integer> arr, int minTimeToPaint, int paintersAvailable) {
 
-    public static int minPainters(ArrayList<Integer> C, int X) {
+        int minTime = Collections.max(arr);
+        int maxTime = arr.stream().mapToInt(Integer::intValue).sum();
 
-        int count = 1;
-        int pTime = 0;
+        int minTimeRequired = 0;
 
-        for (int el : C) {
+        while (minTime <= maxTime) {
 
-            int bTime = el;
+            int timeInRange = minTime + ((maxTime - minTime) >> 1);
 
-            if (bTime > X) return -1;
+            int paintersRequired = findMinPaintersRequired(arr, timeInRange);
 
-            if (pTime + bTime > X) {
-                count++;
-                pTime = bTime;
-            } else pTime += bTime;
+            if (paintersRequired != -1 && paintersRequired <= paintersAvailable) {
+                minTimeRequired = timeInRange;
+                maxTime = timeInRange - 1;
+            } else minTime = timeInRange + 1;
         }
 
-        return count;
+        long res = (long) minTimeRequired * minTimeToPaint % 10000003;
+        return (int) res;
     }
 
-    public static int findTime(ArrayList<Integer> C, int A, int B) {
+    public static int findMinPaintersRequired(ArrayList<Integer> arr, int availableTime) {
 
-        int mod = 10000003;
+        int totalPaintersRequired = 1;
+        int timeToPaint = 0;
 
-        int low = Collections.max(C);
+        for (int el : arr) {
+            int boardLength = el;
 
-        int high = C.stream().mapToInt(Integer::intValue).sum();
+            if (boardLength > availableTime) return -1;
 
-        int res = 0;
-
-        while (low <= high) {
-
-            int mid = low + ((high - low) >> 1);
-
-            int paintersRequired = minPainters(C, mid);
-
-            if (paintersRequired != -1 && paintersRequired <= A) {
-                res = mid;
-                high = mid - 1;
-            } else low = mid + 1;
+            if (timeToPaint + boardLength <= availableTime) {
+                timeToPaint += boardLength;
+            } else {
+                totalPaintersRequired++;
+                timeToPaint = boardLength;
+            }
         }
 
-        return (int) ((long) res * B % mod);
-
+        return totalPaintersRequired;
     }
 
 }
