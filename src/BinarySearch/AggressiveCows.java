@@ -54,55 +54,58 @@ public class AggressiveCows {
 
     public static void main(String[] args) {
 
-        ArrayList<Integer> A = new ArrayList<>(Arrays.asList(5,17,100,11));
+        ArrayList<Integer> A = new ArrayList<>(Arrays.asList(5, 17, 100, 11));
         int B = 2;
         Collections.sort(A);
-        int res = findLargestMinDistance(A, B);
+        int res = findLargestMinimumDistance(A, B);
         System.out.println(res);
         // Time O(( Nlog(max(A) - min(A)) ) + NlogN); -> O(NlogN);
         // Space O(1);
     }
 
-    public static int findLargestMinDistance(ArrayList<Integer> A, int totalCows) {
+    public static int findLargestMinimumDistance(ArrayList<Integer> A, int noOfCows) {
 
-        int n = A.size();
+        Collections.sort(A);
 
-        int left = 1;
-        int right = A.get(n - 1) - A.get(0);
-        int minLargestDistance = 0;
+        int minDistance = 1;
+        int maxDistance = A.get(A.size() - 1) - A.get(0);
 
-        while (left <= right) {
+        int largestPossibleDistance = 0;
 
-            int distanceInRange = left + ((right - left) >> 1);
+        while (minDistance <= maxDistance) {
 
-            int totalCowsThatCanFit = findNoOfCows(A, distanceInRange);
+            int medianDistance = minDistance + ((maxDistance - minDistance) >> 1);
 
-            if (totalCowsThatCanFit >= totalCows) {
-                minLargestDistance = distanceInRange;
-                left = distanceInRange + 1;
-            } else right = distanceInRange - 1;
+            int cowsThatCanFitWithMedianDistance = findNoOfCowsThatCanFit(A, medianDistance);
+
+            if (cowsThatCanFitWithMedianDistance >= noOfCows) {
+                largestPossibleDistance = medianDistance;
+                minDistance = medianDistance + 1;
+            } else maxDistance = medianDistance - 1;
         }
 
-        return minLargestDistance;
+        return largestPossibleDistance;
     }
 
-    public static int findNoOfCows(ArrayList<Integer> A, int minDistance) {
+    public static int findNoOfCowsThatCanFit(ArrayList<Integer> A, int minDistance) {
 
-        int totalCows = 1;
-        int lastPosition = A.get(0);
+        int noOfCows = 1;
+        int lastStallWhereCowWasPlaced = A.get(0);
 
-        for (int i = 1; i < A.size(); i++) {
+        for (int stall = 1; stall < A.size(); stall++) {
 
-            int stalls = A.get(i);
+            int currentStall = A.get(stall);
 
-            if (stalls - lastPosition >= minDistance) {
-                totalCows++;
-                lastPosition = stalls;
+            int distanceBetweenStalls = currentStall - lastStallWhereCowWasPlaced;
+
+            if (distanceBetweenStalls >= minDistance) {
+                noOfCows++;
+                lastStallWhereCowWasPlaced = currentStall;
             }
 
         }
 
-        return totalCows;
+        return noOfCows;
     }
 }
 
