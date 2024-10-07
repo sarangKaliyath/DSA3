@@ -64,23 +64,23 @@ public class MatrixMedian {
 
     public static int findMedian(ArrayList<ArrayList<Integer>> A) {
 
-        int left = 0;
-        int right = 0;
-
         int n = A.size();
         int m = A.get(0).size();
 
-        int ans = -1;
-
-        int req = ((n * m) / 2) + 1;
+        int reqValue = ((m * n) >> 1);
+        int left = 0;
+        int right = 0;
 
         for (ArrayList<Integer> row : A) {
             right = Math.max(right, row.get(m - 1));
         }
+        ;
+
+        int ans = -1;
 
         while (left <= right) {
 
-            int mid = left + ((right - left) / 2);
+            int mid = left + ((right - left) >> 1);
 
             int count = 0;
 
@@ -88,35 +88,31 @@ public class MatrixMedian {
                 count += binarySearch(row, mid);
             }
 
-            if (count >= req) {
+            if (count > reqValue) {
                 ans = mid;
                 right = mid - 1;
             } else left = mid + 1;
 
         }
-
         return ans;
     }
 
-    public static int binarySearch(ArrayList<Integer> A, int B) {
+    public static int binarySearch(ArrayList<Integer> row, int B) {
 
         int left = 0;
-        int right = A.size() - 1;
-
+        int right = row.size() - 1;
         int ans = -1;
 
         while (left <= right) {
 
-            int mid = left + ((right - left) / 2);
+            int mid = left + ((right - left) >> 1);
 
-            if (A.get(mid) > B) {
+            if (row.get(mid) > B) {
                 ans = mid;
                 right = mid - 1;
             } else left = mid + 1;
-
         }
 
-        if (ans == -1) return A.size();
-        else return ans;
+        return ans == -1 ? row.size() : ans;
     }
 }
