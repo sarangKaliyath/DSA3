@@ -15,7 +15,7 @@ NOTE: Rows are numbered from top to bottom, and columns are from left to right.
 
 Problem Constraints
 1 <= N, M <= 1000
-1 <= A[i][j], B <= 106
+1 <= A[i][j], B <= 10^6
 
 Input Format
 The first argument given is the integer matrix A.
