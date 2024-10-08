@@ -51,18 +51,15 @@ public class SquareRootOfInteger {
     }
 
     public static long binarySearch(int A) {
-        long left = 0;
-        long right = A;
+        int left = 0;
+        int right = A;
 
         while (left <= right) {
+            int mid = left + ((right - left) >> 1);
+            long sqr = (long) mid * mid;
 
-            long mid = left + ((right - left) / 2);
-            long prod = mid * mid;
-
-            if (prod == A) return mid;
-
-            else if (prod < A) left = mid + 1;
-
+            if (sqr == A) return mid;
+            else if (sqr < A) left = mid + 1;
             else right = mid - 1;
         }
 
