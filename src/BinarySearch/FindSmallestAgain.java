@@ -95,47 +95,49 @@ public class FindSmallestAgain {
     }
 
     public static void optimized(ArrayList<Integer> A, int B) {
+
+
         Collections.sort(A);
+
         int n = A.size();
 
-        int left = A.get(1) + A.get(2) + A.get(3);
-        int right = A.get(n - 1) + A.get(n - 2) + A.get(n - 3);
+        int minTripletSum = A.get(0) + A.get(1) + A.get(2);
+        int maxTripletSum = A.get(n - 1) + A.get(n - 2) + A.get(n - 3);
+
         int ans = 0;
 
-        while (left <= right) {
+        while (minTripletSum <= maxTripletSum) {
 
-            int mid = left + ((right - left) / 2);
+            int sum = minTripletSum + (maxTripletSum - minTripletSum) / 2;
 
-            if (check(A, n, B, mid)) {
-                ans = mid;
-                right = mid - 1;
-            } else left = mid + 1;
-
+            if (check(A, n, B, sum)) {
+                ans = sum;
+                maxTripletSum = sum - 1;
+            } else minTripletSum = sum + 1;
         }
 
         System.out.println(ans);
 
     }
 
-    public static boolean check(ArrayList<Integer> A, int n, int B, int mid) {
+    public static boolean check(ArrayList<Integer> A, int n, int B, int sum) {
 
         int count = 0;
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n - 2; i++) {
 
-            int left = i + 1;
-            int right = n - 1;
+            int j = i + 1;
+            int k = n - 1;
 
-            while (left < right) {
+            while (j < k) {
+                int tripletSum = A.get(i) + A.get(j) + A.get(k);
 
-                if (A.get(i) + A.get(left) + A.get(right) <= mid) {
-                    count += right - left;
-                    left++;
-                } else right--;
+                if (tripletSum <= sum) {
+                    count += k - j;
+                    j++;
+                } else k--;
             }
-
         }
-
         return count >= B;
     }
 }
