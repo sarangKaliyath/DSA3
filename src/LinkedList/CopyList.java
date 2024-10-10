@@ -69,20 +69,24 @@ public class CopyList {
         createDeepCopyFirstApproach(head);
         // Time O(N);
         // Space O(N);
+
+        deepCopyOptimized(head);
+        // Time O(N);
+        // Space O(1);
     }
 
     public static void createDeepCopyFirstApproach(RandomListNode head) {
 
         RandomListNode head2 = new RandomListNode(head.label);
 
-        HashMap <RandomListNode, RandomListNode> hm = new HashMap<>();
+        HashMap<RandomListNode, RandomListNode> hm = new HashMap<>();
 
         RandomListNode current1 = head;
         RandomListNode current2 = head2;
 
         hm.put(current1, current2);
 
-        while (current1.next != null){
+        while (current1.next != null) {
 
             current2.next = new RandomListNode(current1.next.label);
             hm.put(current1.next, current2.next);
@@ -91,14 +95,57 @@ public class CopyList {
         }
 
         current1 = head;
-        current2  = head2;
+        current2 = head2;
 
-        while (current1 != null){
+        while (current1 != null) {
             current2.random = hm.get(current1.random);
             current1 = current1.next;
             current2 = current2.next;
         }
         System.out.println("Deep Copy");
+        printList(head2);
+    }
+
+    public static void deepCopyOptimized(RandomListNode head) {
+
+
+        RandomListNode current = head;
+
+        while (current != null) {
+
+            RandomListNode tempNode = new RandomListNode(current.label);
+
+            tempNode.next = current.next;
+
+            current.next = tempNode;
+
+            current = tempNode.next;
+        }
+
+        current = head;
+
+        while (current != null) {
+            if (current.random != null) {
+                current.next.random = current.random.next;
+            }
+            current = current.next.next;
+        }
+
+        RandomListNode head2 = head.next;
+        RandomListNode temp1 = head;
+        RandomListNode temp2 = head2;
+
+        while (temp1 != null) {
+            temp1.next = temp1.next.next;
+
+            if (temp2.next != null) {
+                temp2.next = temp2.next.next;
+            }
+            temp1 = temp1.next;
+            temp2 = temp2.next;
+        }
+
+        System.out.println("Optimized");
         printList(head2);
     }
 
