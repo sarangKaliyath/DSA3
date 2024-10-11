@@ -59,12 +59,46 @@ public class ReverseLinkedList2 {
 
         PrintList(copy);
 
-//        bruteForce(copy, B, C);
-
         optimized(copy, B, C);
     }
 
+    public static void optimized(ListNode head, int B, int C) {
+
+        if (head == null || B == C) {
+            PrintList(head);
+        } else {
+
+            ListNode dummy = new ListNode(0);
+            dummy.next = head;
+            ListNode prev = dummy;
+
+            for (int i = 1; i < B; i++) {
+                prev = prev.next;
+            }
+
+            ListNode current = prev.next;
+            ListNode next = current.next;
+
+            for (int i = 0; i < C - B; i++) {
+                current.next = next.next;
+                next.next = prev.next;
+                prev.next = next;
+                next = current.next;
+            }
+
+            dummy = dummy.next;
+
+            PrintList(dummy);
+        }
+        // Time O(N);
+        // Space O(1);
+    }
+
+
     public static void bruteForce(ListNode head, int B, int C) {
+
+        // Gives Correct output but is invalid approach,
+        // Since it's not an inPlace reversal;
 
         ListNode current = head;
 
@@ -97,39 +131,6 @@ public class ReverseLinkedList2 {
 
         PrintList(head);
         // Time O(N^2);
-        // Space O(1);
-    }
-
-    public  static  void  optimized (ListNode head, int B, int C){
-
-        if(head == null || B == C){
-            PrintList(head);
-        }
-        else {
-
-            ListNode dummy = new ListNode(0);
-            dummy.next = head;
-            ListNode prev = dummy;
-
-            for(int i = 1; i < B; i++){
-                prev = prev.next;
-            }
-
-            ListNode current = prev.next;
-            ListNode next = current.next;
-
-            for(int i = 0; i < C - B; i++){
-                current.next = next.next;
-                next.next = prev.next;
-                prev.next = next;
-                next = current.next;
-            }
-
-            dummy = dummy.next;
-
-            PrintList(dummy);
-        }
-        // Time O(N);
         // Space O(1);
     }
 
