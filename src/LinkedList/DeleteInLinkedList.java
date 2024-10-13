@@ -42,7 +42,7 @@ public class DeleteInLinkedList {
 
     public static void main(String[] args) {
         int[] arr = {4, 3, 2, 1};
-        int B = 3;
+        int B = 0;
 
         ListNode A = new ListNode(4);
         ListNode copy = A;
@@ -54,11 +54,14 @@ public class DeleteInLinkedList {
 
         copy = A;
 
-        deleteLink(copy, B);
+//        deleteLink(copy, B);
+        // Time O(B);
+        // Space O(1);
+
+        second(copy, B);
         // Time O(B);
         // Space O(1);
     }
-
     public static void deleteLink(ListNode A, int B) {
 
         ListNode copy = A;
@@ -84,5 +87,27 @@ public class DeleteInLinkedList {
             copy = copy.next;
         }
 
+    }
+
+    public  static  void second(ListNode head, int B){
+        ListNode current = head;
+
+        if(B == 0){
+            head = head.next;
+        }
+        else {
+            for(int i = 1; i < B && current.next != null; i++){
+                current = current.next;
+            }
+
+            current.next = current.next.next;
+        }
+
+        current = head;
+
+        while (current != null) {
+            System.out.print(current.val + " ");
+            current = current.next;
+        }
     }
 }

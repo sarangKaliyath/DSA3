@@ -71,22 +71,31 @@ public class InsertInLinkedList {
             tempInitial = tempInitial.next;
         }
 
+//        insertAtBFirstApproach(head, B, C);
+        // Time O(N);
+        // Space O(1);
 
+        insertAtBSecondApproach(head, B, C);
+        // Time O(N);
+        // Space O(1);
+    }
+
+
+    public static void insertAtBFirstApproach(ListNode head, int B, int C) {
         int len = findListLen(head);
 
-        if(C > len) C = len;
+        if (C > len) C = len;
 
         ListNode insertNode = new ListNode(B);
 
-        if(C == 0){
+        if (C == 0) {
             insertNode.next = head;
             head = insertNode;
-        }
-        else {
+        } else {
 
             ListNode current = head;
 
-            for(int i = 1; i < C; i++){
+            for (int i = 1; i < C; i++) {
                 current = current.next;
             }
 
@@ -100,15 +109,36 @@ public class InsertInLinkedList {
             System.out.print(temp.val + " ");
             temp = temp.next;
         }
-
-        // Time O(N);
-        // Space O(1);
     }
 
-    public static int findListLen(ListNode A){
+    public static void insertAtBSecondApproach(ListNode A, int B, int C) {
+        ListNode current = A;
+        ListNode node = new ListNode(B);
+
+        if (A == null) {
+            A = node;
+        } else if (C == 0) {
+            node.next = current;
+            current = node;
+        } else {
+            for (int i = 1; i < C && current.next != null; i++) {
+                current = current.next;
+            }
+            node.next = current.next;
+            current.next = node;
+        }
+        current = A;
+
+        while (current != null) {
+            System.out.print(current.val + " ");
+            current = current.next;
+        }
+    }
+
+    public static int findListLen(ListNode A) {
         int len = 0;
         ListNode copyList = A;
-        while(copyList != null){
+        while (copyList != null) {
             len++;
             copyList = copyList.next;
         }
