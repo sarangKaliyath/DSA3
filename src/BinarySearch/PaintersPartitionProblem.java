@@ -66,12 +66,17 @@ Explanation 2:
 public class PaintersPartitionProblem {
 
     public static void main(String[] args) {
-        ArrayList<Integer> C = new ArrayList(Arrays.asList(185, 186, 938, 558, 655, 461, 441, 234, 902, 681));
+        ArrayList<Integer> C = new ArrayList<>(Arrays.asList(185, 186, 938, 558, 655, 461, 441, 234, 902, 681));
         int A = 3;
         int B = 10;
 
         int res = findMinimumTimeRequired(C, B, A);
         System.out.println(res);
+        // Time for BinarySearch: O(log(sum of board lengths))
+        // Time to find No. of painters required: O(N):
+        // Time O(N log (Sum of board lengths));
+
+        // Space O(1);
     }
 
     public static int findMinimumTimeRequired(ArrayList<Integer> arr, int minTimeToPaint, int paintersAvailable) {
@@ -100,18 +105,18 @@ public class PaintersPartitionProblem {
     public static int findMinPaintersRequired(ArrayList<Integer> arr, int availableTime) {
 
         int totalPaintersRequired = 1;
-        int timeToPaint = 0;
+        int totalBoardLength = 0;
+        // totalBoardLength is the length of board that can be painted by a singlePainter,
+        // within available time.
 
-        for (int el : arr) {
-            int boardLength = el;
-
+        for (int boardLength : arr) {
             if (boardLength > availableTime) return -1;
 
-            if (timeToPaint + boardLength <= availableTime) {
-                timeToPaint += boardLength;
+            if (totalBoardLength + boardLength <= availableTime) {
+                totalBoardLength += boardLength;
             } else {
                 totalPaintersRequired++;
-                timeToPaint = boardLength;
+                totalBoardLength = boardLength;
             }
         }
 
