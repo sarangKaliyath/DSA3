@@ -49,7 +49,8 @@ public class ParkingIceCreamTruck {
 
         ArrayList<Integer> res = findBusiestStretch(A, B);
         System.out.println(res);
-
+        // Time O(N);
+        // Space O(B);
     }
 
     public  static ArrayList<Integer> findBusiestStretch(ArrayList<Integer> A, int B){
