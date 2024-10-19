@@ -76,7 +76,6 @@ public class SumOfMinAndMax {
 
         for (int i = 0; i < B; i++) {
             enqueue(A, maxQ, i, 1);
-
             enqueue(A, minQ, i, 0);
         }
 
@@ -87,11 +86,9 @@ public class SumOfMinAndMax {
         for (int i = B; i < A.size(); i++) {
 
             enqueue(A, maxQ, i, 1);
-
             if (!maxQ.isEmpty() && maxQ.peekFirst() == i - B) maxQ.pollFirst();
 
             enqueue(A, minQ, i, 0);
-
             if (!minQ.isEmpty() && minQ.peekFirst() == i - B) minQ.pollFirst();
 
             if (!minQ.isEmpty() && !maxQ.isEmpty()) {
@@ -99,7 +96,7 @@ public class SumOfMinAndMax {
             }
         }
 
-        if(sum < 0) sum+= MOD;
+        if (sum < 0) sum += MOD;
         return (int) sum;
     }
 
