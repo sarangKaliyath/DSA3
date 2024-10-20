@@ -81,8 +81,6 @@ public class MinAndMax {
             }
         }
         System.out.println(ans);
-        // Time O(N + N + N);
-        // Space O(N + N + N);
     }
 
     public static void optimized(ArrayList<Integer> A, int n) {
@@ -103,6 +101,8 @@ public class MinAndMax {
         }
 
         System.out.print(ans);
+        // Time O(N + N + N);
+        // Space O(N + N + N);
     }
 
     public static int[] findNearestGreaterToLeft(ArrayList<Integer> A, int n) {
