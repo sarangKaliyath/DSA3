@@ -1,6 +1,6 @@
 package Stacks;
 
-import java.util.Stack;
+import java.util.*;
 
 /*
 Problem Description
@@ -52,29 +52,37 @@ public class DoubleCharacterTrouble {
         Stack<Character> stack = new Stack<>();
 
         for(int i = 0; i < A.length(); i++){
-
-            if(stack.isEmpty()){
-                stack.push(A.charAt(i));
+            char ch = A.charAt(i);
+            if(!stack.isEmpty() && stack.peek() == ch){
+                stack.pop();
             }
-            else {
-                char val = stack.peek();
+            else stack.push(ch);
+        }
 
-                if(val != A.charAt(i)) stack.push(A.charAt(i));
-                else stack.pop();
-            }
+        ArrayList<Character> res = new ArrayList<>();
 
+        while(!stack.isEmpty()){
+            res.add(stack.pop());
+        }
+
+        System.out.println(reverse(res));
+        // Time O(N);
+        // Space O(N);
+    }
+
+    public static String reverse(ArrayList<Character> A){
+        int l = 0;
+        int r = A.size() - 1;
+
+        while(l < r){
+            Character temp = A.get(l);
+            A.set(l, A.get(r));
+            A.set(r, temp);
+            l++; r--;
         }
 
         StringBuilder sb = new StringBuilder();
-
-        for(Character el : stack){
-            sb.append(el);
-        }
-
-        String str = sb.toString();
-
-        System.out.println(str);
-        // Time O(N);
-        // Space O(N);
+        for(char el : A) sb.append(el);
+        return sb.toString();
     }
 }
