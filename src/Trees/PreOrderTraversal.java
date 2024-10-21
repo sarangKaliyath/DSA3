@@ -46,20 +46,20 @@ public class PreOrderTraversal {
 
     public static void main(String[] args) {
 
-//        ArrayList<Integer> A  = new ArrayList<>(Arrays.asList(1, null, 2, 3, null));
-        ArrayList<Integer> A  = new ArrayList<>(Arrays.asList(1, 6, 2, null, null, 3, null));
+        ArrayList<Integer> A = new ArrayList<>(Arrays.asList(1, 6, 2, null, null, 3, null));
+        // Class to build an Integer Tree with left from an arrayList;
         BuildIntegerTree treeBuilder = new BuildIntegerTree();
         TreeNode root = treeBuilder.BuildIntegerTree(A);
 
         ArrayList<Integer> res = new ArrayList<>();
         preOrderTraversal(root, res);
         System.out.println(res);
+        // Time O(N);
+        // Space O(height of tree);
     }
 
-    public  static void preOrderTraversal(TreeNode root, ArrayList<Integer> res){
-
-        if(root == null) return;
-
+    public static void preOrderTraversal(TreeNode root, ArrayList<Integer> res) {
+        if (root == null) return;
         res.add(root.val);
         preOrderTraversal(root.left, res);
         preOrderTraversal(root.right, res);
