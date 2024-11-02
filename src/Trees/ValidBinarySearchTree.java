@@ -54,8 +54,18 @@ public class ValidBinarySearchTree {
         System.out.println(res + " " + prev);
         // Time O(N);
         // Space O(Height of Tree);
+
+        boolean out = betterApproach(root, Long.MIN_VALUE, Long.MAX_VALUE);
+        System.out.println(out);
+        // Time O(N);
+        // Space O(Height of tree);
     }
 
+    public static boolean betterApproach(TreeNode root, long min, long max){
+        if(root == null) return  true;
+        if(root.val < min || root.val > max) return  false;
+        return betterApproach(root.left, min, root.val) && betterApproach(root.right, root.val, max);
+    }
     public static boolean isBalanced(TreeNode root) {
         if (root == null) return true;
         if (!isBalanced(root.left) || root.val < prev) return false;
