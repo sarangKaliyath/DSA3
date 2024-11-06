@@ -59,8 +59,24 @@ public class SumBinaryTreeOrNot {
 
         boolean res = check(root);
         System.out.println(res);
+        // Time O(N log N);
+        // Space O(Height of tree);
+
+        int out = optimized(root);
+        System.out.println(out < 0 ? 0 : 1);
         // Time O(N);
         // Space O(Height of tree);
+    }
+
+    public static int optimized(TreeNode root) {
+        if (root == null) return 0;
+        if (root.left == null && root.right == null) return root.val;
+
+        int ls = optimized(root.left);
+        int rs = optimized(root.right);
+
+        if (ls == -1 || rs == -1 || ls + rs != root.val) return -1;
+        return root.val + ls + rs;
     }
 
     public static boolean check(TreeNode root) {
